@@ -26,7 +26,7 @@ var PushBullet = require('pushbullet');
 var notifier = require('node-notifier');
 
 // Read the configuration file
-var config = JSON.parse(fs.readFileSync('~/call-remind.json'));
+var config = JSON.parse(fs.readFileSync('~/.call-remind.json'));
 
 // Create a pushbullet instance
 var pusher = new PushBullet(config.API_KEY);

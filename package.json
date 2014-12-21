@@ -4,7 +4,8 @@
   "description": "A simple cron app to remind me to call people",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "env": "env"
   },
   "keywords": [
     "pushbullet",
