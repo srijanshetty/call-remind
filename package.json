@@ -2,10 +2,9 @@
   "name": "call-remind",
   "version": "0.1.0",
   "description": "A simple cron app to remind me to call people",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "npm test",
-    "env": "env"
+    "test": "node app.js"
   },
   "keywords": [
     "pushbullet",
@@ -17,5 +16,9 @@
   "dependencies": {
     "node-notifier": "^4.0.3",
     "pushbullet": "^1.4.2"
+  },
+  "preferGlobal": "true",
+  "bin": {
+      "call-remind": "app.js"
   }
 }
