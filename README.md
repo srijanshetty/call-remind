@@ -30,14 +30,16 @@ npm link
         {"name": "Eric", "message": "1203948234"},
         {"name": "Mom", "message": "13409412340"},
         {"name": "Dad", "message": "08736291237"}
-    ]
+    ],
+    "notifications": {
+        "laptop": true
+    }
 }
 ```
-
-2. Add call-remind to cron.
 
 Later
 -----
 
 - Windows support. Maybe?
+- cron support
 
