@@ -11,7 +11,16 @@ What?
 How?
 -------
 
-1. Create a ~/call-remind.json file as follows:
+1. Install the package.
+
+```shell
+git clone https://github.com/srijanshetty/call-remind.git
+cd call-remind
+npm install
+npm link
+```
+
+2. Create a ~/call-remind.json file as follows:
 
 ```json
 {

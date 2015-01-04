@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
  * Copyright (c) 2014 Srijan R Shetty <srijan.shetty+code@gmail.com>
  *
@@ -37,10 +38,14 @@ var contactsList = config.list;
 var randomNumber = Math.floor(Math.random() * 1000) % contactsList.length;
 var contact = contactsList[randomNumber];
 
-// Push the notification to the device and OS
+// Push the notification to the device
 pusher.note(config.device, 'Call ' + contact.name, contact.message);
-notifier.notify({
-    title: 'Call ' + contact.name,
-    message: contact.message,
-    icon: path.join(__dirname, 'call.png')
-});
+
+// Push notifications to laptop only if specified
+if (config.notifications && config.notifications.laptop) {
+    notifier.notify({
+        title: 'Call ' + contact.name,
+        message: contact.message,
+        icon: path.join(__dirname, 'call.png')
+    });
+}
