@@ -21,5 +21,14 @@
   "preferGlobal": "true",
   "bin": {
     "call-remind": "app.js"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srijanshetty/call-remind.git"
+  },
+  "bugs": {
+    "url": "https://github.com/srijanshetty/call-remind/issues"
+  },
+  "homepage": "https://github.com/srijanshetty/call-remind"
 }
