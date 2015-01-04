@@ -23,29 +23,50 @@
 // Required modules
 var fs = require('fs');
 var path = require('path');
-var PushBullet = require('pushbullet');
-var notifier = require('node-notifier');
+var CronJob = require('cron').CronJob;
 
 // Read the configuration file
 var configFile = path.join(process.env.HOME, '.call-remind.json');
 var config = JSON.parse(fs.readFileSync(configFile));
-
-// Create a pushbullet instance
-var pusher = new PushBullet(config.API_KEY);
 
 // Use a random contact from the list
 var contactsList = config.list;
 var randomNumber = Math.floor(Math.random() * 1000) % contactsList.length;
 var contact = contactsList[randomNumber];
 
-// Push the notification to the device
-pusher.note(config.device, 'Call ' + contact.name, contact.message);
+function pushBulletNotification() {
+    var PushBullet = require('pushbullet');
 
-// Push notifications to laptop only if specified
-if (config.notifications && config.notifications.laptop) {
-    notifier.notify({
-        title: 'Call ' + contact.name,
-        message: contact.message,
-        icon: path.join(__dirname, 'call.png')
-    });
+    // Create a pushbullet instance
+    var pusher = new PushBullet(config.API_KEY);
+
+    // Push the notification to the device
+    pusher.note(config.device, 'Call ' + contact.name, contact.message);
+
 }
+
+function laptopNotification() {
+    var notifier = require('node-notifier');
+
+    // Push notifications to laptop only if specified
+    if (config.notifications && config.notifications.laptop) {
+        notifier.notify({
+            title: 'Call ' + contact.name,
+            message: contact.message,
+            icon: path.join(__dirname, 'call.png')
+        });
+    }
+}
+
+if (config.cron) {
+    // Setup a cron job for sending the notification
+    new CronJob('0 0 * * * *', function(){
+        pushBulletNotification();
+        laptopNotification();
+    }, null, true);
+} else {
+    // Run the notifications once
+    pushBulletNotification();
+    laptopNotification();
+}
+

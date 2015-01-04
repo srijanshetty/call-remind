@@ -1,6 +1,6 @@
 {
   "name": "call-remind",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "A simple cron app to remind me to call people",
   "main": "app.js",
   "scripts": {
@@ -14,11 +14,12 @@
   "author": "Srijan R Shetty",
   "license": "MIT",
   "dependencies": {
+    "cron": "^1.0.5",
     "node-notifier": "^4.0.3",
     "pushbullet": "^1.4.2"
   },
   "preferGlobal": "true",
   "bin": {
-      "call-remind": "app.js"
+    "call-remind": "app.js"
   }
 }

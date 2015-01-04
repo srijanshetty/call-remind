@@ -41,5 +41,4 @@ Later
 -----
 
 - Windows support. Maybe?
-- cron support
 
