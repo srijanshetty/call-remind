@@ -28,25 +28,22 @@ var CronJob = require('cron').CronJob;
 // Read the configuration file
 var configFile = path.join(process.env.HOME, '.call-remind.json');
 var config = JSON.parse(fs.readFileSync(configFile));
-
-// Use a random contact from the list
 var contactsList = config.list;
-var randomNumber = Math.floor(Math.random() * 1000) % contactsList.length;
-var contact = contactsList[randomNumber];
 
-function pushBulletNotification() {
+function notification() {
+    // Setup the notifiers
     var PushBullet = require('pushbullet');
+    var notifier = require('node-notifier');
 
     // Create a pushbullet instance
     var pusher = new PushBullet(config.API_KEY);
 
+    // Get a random contact
+    var randomNumber = Math.floor(Math.random() * 1000) % contactsList.length;
+    var contact = contactsList[randomNumber];
+
     // Push the notification to the device
     pusher.note(config.device, 'Call ' + contact.name, contact.message);
-
-}
-
-function laptopNotification() {
-    var notifier = require('node-notifier');
 
     // Push notifications to laptop only if specified
     if (config.notifications && config.notifications.laptop) {
@@ -58,15 +55,10 @@ function laptopNotification() {
     }
 }
 
-if (config.cron) {
+if (config.notifications && config.notifications.cron) {
     // Setup a cron job for sending the notification
-    new CronJob('0 0 * * * *', function(){
-        pushBulletNotification();
-        laptopNotification();
-    }, null, true);
+    new CronJob('0 0 * * * *', notification, null, true);
 } else {
-    // Run the notifications once
-    pushBulletNotification();
-    laptopNotification();
+    notification();
 }
 
