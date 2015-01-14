@@ -57,7 +57,7 @@ function notification() {
 
 if (config.notifications && config.notifications.cron) {
     // Setup a cron job for sending the notification
-    new CronJob('0 0 * * * *', notification, null, true);
+    new CronJob('30 10 * * * *', notification, null, true);
 } else {
     notification();
 }
